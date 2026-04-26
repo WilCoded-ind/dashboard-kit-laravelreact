@@ -3,12 +3,12 @@
 namespace App\Repositories\Contracts;
 
 use App\Models\Menu;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface MenuRepositoryInterface
 {
     // ambil semua data menu
-    public function getAll(): Collection;
+    public function getAll(array $params): LengthAwarePaginator;
 
     // ambil data menu berdasarkan id
     public function findById(int $id): Menu;

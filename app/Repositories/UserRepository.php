@@ -3,15 +3,26 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository implements UserRepositoryInterface
 {
     // method - ambil semua data user
-    public function getAll(): Collection
+    public function getAll(array $params): LengthAwarePaginator
     {
-        return User::with('roles')->get();
+        return User::with('roles')
+            // search
+            ->when($params['search'] ?? null, fn($q, $search) =>
+            $q->where('name', 'like', "%$search%")
+              ->orWhere('username', 'like', "%$search%")
+            )
+
+            // sorting
+            ->orderBy($params['sort'] ?? 'id', $params['direction'] ?? 'asc')
+
+            // paginate
+            ->paginate($params['per_page'] ?? 10);
     }
 
     // method - ambil data user berdasarkan id

@@ -3,12 +3,12 @@
 namespace App\Repositories\Contracts;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface UserRepositoryInterface
 {
     // ambil semua data user
-    public function getAll(): Collection;
+    public function getAll(array $params): LengthAwarePaginator;
 
     // ambil data user berdasarkan id
     public function findById(int $id): User;
