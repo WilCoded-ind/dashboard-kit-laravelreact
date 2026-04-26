@@ -3,12 +3,12 @@
 namespace App\Services\Contracts;
 
 use App\Models\Role;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface RoleServiceInterface
 {
     // ambil semua data role
-    public function getAll(): Collection;
+    public function getAll(array $params): LengthAwarePaginator;
 
     // ambil data role berdasarkan id
     public function findById(int $id): Role;

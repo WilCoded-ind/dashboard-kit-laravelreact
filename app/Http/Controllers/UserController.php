@@ -23,7 +23,7 @@ class UserController extends Controller
     public function index(): Response
     {
         return Inertia::render('users/index', [
-            'users'     => $this->userService->getAll(),
+            'users'     => $this->userService->getAll(request()->all()),
         ]);
     }
 
@@ -33,7 +33,7 @@ class UserController extends Controller
     public function create(): Response
     {
         return Inertia::render('users/create',[
-            'roles'     => $this->userService->getAll(),
+            'roles'     => $this->roleService->getAll([]),
         ]);
     }
 
@@ -64,7 +64,7 @@ class UserController extends Controller
     {
         return Inertia::render('users/edit', [
             'user'      => $user,
-            'role'      => $this->roleService->getAll()
+            'role'      => $this->roleService->getAll([])
         ]);
     }
 

@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\Contracts\UserServiceInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserService implements UserServiceInterface
 {
@@ -15,9 +15,9 @@ class UserService implements UserServiceInterface
     ) {}
 
     // method - ambil semua data user
-    public function getAll(): Collection
+    public function getAll(array $params): LengthAwarePaginator
     {
-        return $this->userRepository->getAll();
+        return $this->userRepository->getAll($params);
     }
 
     // method - ambil data user berdasarkan id

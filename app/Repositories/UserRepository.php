@@ -11,11 +11,12 @@ class UserRepository implements UserRepositoryInterface
     // method - ambil semua data user
     public function getAll(array $params): LengthAwarePaginator
     {
-        return User::with('roles')
+        return User::query()
             // search
             ->when($params['search'] ?? null, fn($q, $search) =>
             $q->where('name', 'like', "%$search%")
               ->orWhere('username', 'like', "%$search%")
+              ->orWhere('email', 'like', "%$search%")
             )
 
             // sorting
@@ -28,7 +29,7 @@ class UserRepository implements UserRepositoryInterface
     // method - ambil data user berdasarkan id
     public function findById(int $id): User
     {
-        return User::with('roles')->findOrFail($id);
+        return User::findOrFail($id);
     }
 
     // method - buat data user baru

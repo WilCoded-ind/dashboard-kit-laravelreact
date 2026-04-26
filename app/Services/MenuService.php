@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Models\Menu;
-use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\MenuRepositoryInterface;
 use App\Services\Contracts\MenuServiceInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class MenuService implements MenuServiceInterface
 {
@@ -15,9 +15,9 @@ class MenuService implements MenuServiceInterface
     ) {}
 
     // method - ambil semua data Menu
-    public function getAll(): Collection
+    public function getAll(array $params): LengthAwarePaginator
     {
-        return $this->menuRepository->getAll();
+        return $this->menuRepository->getAll($params);
     }
 
     // method - ambil data Menu berdasarkan id

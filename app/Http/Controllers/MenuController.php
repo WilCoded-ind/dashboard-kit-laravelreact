@@ -21,7 +21,7 @@ class MenuController extends Controller
     public function index(): Response
     {
         return Inertia::render('menus/index', [
-            'menus' => $this->menuService->getAll(),
+            'menus' => $this->menuService->getAll(request()->all()),
         ]);
     }
 
@@ -31,7 +31,7 @@ class MenuController extends Controller
     public function create(): Response
     {
         return Inertia::render('menus/create', [
-            'parent' => $this->menuService->getAll(),
+            'parent' => $this->menuService->getAll([]),
         ]);
     }
 
@@ -60,7 +60,7 @@ class MenuController extends Controller
     {
         return Inertia::render('menus/edit', [
             'menu'      => $menu,
-            'parent'    => $this->menuService->getAll(),
+            'parent'    => $this->menuService->getAll([]),
         ]);
     }
 

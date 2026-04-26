@@ -3,15 +3,21 @@
 namespace App\Repositories;
 
 use App\Models\Role;
-use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\RoleRepositoryInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class RoleRepository implements RoleRepositoryInterface
 {
     // method - ambil semua data role
-    public function getAll(): Collection
+    public function getAll(array $params): LengthAwarePaginator
     {
-        return Role::all();
+        return Role::query()
+            ->when($params['search'] ?? null, fn($q, $search) =>
+                $q->where('name', 'like', "%$search%")
+                    ->orWhere('initials', 'like', "%$search%")
+            )
+            ->orderBy($params['sort'] ?? 'id', $params['direction'] ?? 'asc')
+            ->paginate($params['per_page'] ?? 10);
     }
 
     // method - ambil data role berdasarkan id

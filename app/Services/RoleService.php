@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Models\Role;
-use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\RoleRepositoryInterface;
 use App\Services\Contracts\RoleServiceInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class RoleService implements RoleServiceInterface
 {
@@ -15,9 +15,9 @@ class RoleService implements RoleServiceInterface
     ) {}
 
     // method - ambil semua data role
-    public function getAll(): Collection
+    public function getAll(array $params): LengthAwarePaginator
     {
-        return $this->roleRepository->getAll();
+        return $this->roleRepository->getAll($params);
     }
 
     // method - ambil data role berdasarkan id

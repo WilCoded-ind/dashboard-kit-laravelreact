@@ -27,7 +27,7 @@ class RoleController extends Controller
     public function index(): Response
     {
         return Inertia::render('roles/index', [
-            'roles' => $this->roleService->getAll(),
+            'roles' => $this->roleService->getAll(request()->all()),
         ]);
     }
 
@@ -84,7 +84,7 @@ class RoleController extends Controller
     {
         return Inertia::render('roles/permission', [
             'role' => $role,
-            'menus' => $this->menuService->getAll(),
+            'menus' => $this->menuService->getAll([]),
             'permissions' => $this->permissionService->getByRoleId($role->id),
         ]);
     }
